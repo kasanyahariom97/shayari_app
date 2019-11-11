@@ -1,73 +1,52 @@
 import {
-  IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
   IonMenuButton,
   IonPage,
-  IonTitle,
-  IonToolbar
-  } from '@ionic/react';
-import { book, build, colorFill, grid } from 'ionicons/icons';
-import React from 'react';
-import './Home.css';
+  IonContent,
+} from "@ionic/react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
+import styled from 'styled-components'
+import { Types } from "../components/Types";
+import ShayariTypes from '../data/types';
+import { AppContext } from '../Context'
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: #f1f1f1;
+`
 
 const HomePage: React.FC = () => {
+
+  const myContext: any = React.useContext(AppContext);
+
+  React.useEffect(() => {
+    myContext.setCurrentPage(0);
+  }, [])
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
+      <AppBar position="static">
+        <Toolbar>
             <IonMenuButton />
-          </IonButtons>
-          <IonTitle>Home</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+          <Typography variant="h6">
+            Shayari Collection 2019
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <IonContent>
-        <IonCard className="welcome-card">
-          <img src="/assets/shapes.svg" alt=""/>
-          <IonCardHeader>
-            <IonCardSubtitle>Get Started</IonCardSubtitle>
-            <IonCardTitle>Welcome to Ionic</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <p>
-              Now that your app has been created, you'll want to start building out features and
-              components. Check out some of the resources below for next steps.
-            </p>
-          </IonCardContent>
-        </IonCard>
-
-        <IonList lines="none">
-          <IonListHeader>
-            <IonLabel>Resources</IonLabel>
-          </IonListHeader>
-          <IonItem href="https://ionicframework.com/docs/" target="_blank">
-            <IonIcon slot="start" color="medium" icon={book} />
-            <IonLabel>Ionic Documentation</IonLabel>
-          </IonItem>
-          <IonItem href="https://ionicframework.com/docs/building/scaffolding" target="_blank">
-            <IonIcon slot="start" color="medium" icon={build} />
-            <IonLabel>Scaffold Out Your App</IonLabel>
-          </IonItem>
-          <IonItem href="https://ionicframework.com/docs/layout/structure" target="_blank">
-            <IonIcon slot="start" color="medium" icon={grid} />
-            <IonLabel>Change Your App Layout</IonLabel>
-          </IonItem>
-          <IonItem href="https://ionicframework.com/docs/theming/basics" target="_blank">
-            <IonIcon slot="start" color="medium" icon={colorFill} />
-            <IonLabel>Theme Your App</IonLabel>
-          </IonItem>
-        </IonList>
+        <Container>
+        {
+          ShayariTypes.map((x, i) => (
+            <Types key={i} url={x.url} color={x.color} name={x.name} />
+          ))
+        }
+        </Container>
       </IonContent>
     </IonPage>
   );

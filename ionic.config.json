@@ -1,5 +1,7 @@
 {
   "name": "shayaricollection",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }
