@@ -14,7 +14,6 @@ import Connect from "./pages/Connect";
 import { Sad } from "./pages/Shayari/Sad";
 import { Trends } from "./pages/Shayari/Trends";
 import { Videos } from "./pages/Shayari/Videos";
-import { Video } from "./pages/Shayari/Single/Video";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -69,7 +68,6 @@ const App: React.FC = () => (
             <Route path="/home/sad" component={Sad} exact={true} />
             <Route path="/home/trend" component={Trends} exact={true} />
             <Route path="/home/videos" component={Videos} exact={true} />
-            <Route path="/video" component={Video} exact={true} />
             <Route path="/about" component={About} exact={true} />
             <Route path="/connect" component={Connect} exact={true} />
             <Route path="/help" component={Help} exact={true} />
