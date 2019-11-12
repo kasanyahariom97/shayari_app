@@ -1,4 +1,4 @@
 export const url = "https://example.com";
 export const version = "1.0.0";
 export const appName = "Hindi Shayari Collection 2019";
-export const repoUrl = "https://github.com/hariomvvrma/shayari_app";
+export const repoUrl = "https://github.com/kasanyahariom97/shayari_app";
