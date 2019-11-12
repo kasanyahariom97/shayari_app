@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import MainImg from "../assets/main.jpg";
 
 const Button = styled.div`
   background: white;
@@ -33,8 +32,8 @@ const Button = styled.div`
 
 type PropType = {
   name: string;
-  url?: any;
-  color?: string;
+  url: any;
+  color: string;
 };
 
 export const Types = (props: PropType) => {

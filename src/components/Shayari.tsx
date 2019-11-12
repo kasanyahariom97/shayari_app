@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { share, copy } from 'ionicons/icons';
 import { IonIcon } from "@ionic/react";
 import { Plugins } from '@capacitor/core'
+import { url } from '../data/config'
 
 const Container = styled.div`
   width: 100%;
@@ -99,9 +100,9 @@ export const Shayari = (props: PropType) => {
   }
 
   const Share = async () => {
-      const sData = await Plugins.Share.share({
+      await Plugins.Share.share({
         title: "Shayari Collection 2019",
-        text: props.text + "\n \n http://www.example.com",
+        text: props.text + "\n \n " + url,
         dialogTitle: "Share a shayari"
       })
   }

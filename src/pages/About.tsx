@@ -4,8 +4,8 @@ import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { AppContext } from '../Context'
 import styled from 'styled-components'
 import LogoImg from '../assets/favicon.png'
-import { Share as ShareIcon, Public as PublicIcon } from '@material-ui/icons'
-import { url, version } from '../data/config'
+import { Share as ShareIcon } from '@material-ui/icons'
+import { url, version, repoUrl } from '../data/config'
 import { Plugins } from '@capacitor/core'
 
 const Container = styled.div`
@@ -54,7 +54,7 @@ const About = () => {
     const text = `हेलो दोस्तों, मैंने play store पर एक नया app ढूँढा है जिसका नाम है 'Shayari Collection 2019' 
     ❤️ यह एक ऐसी app है जिस पर आपको latest शायरियाँ हिंदी में उपलब्ध कराई जाती है 
     इस पर आपको हर हफ्ते नयी नयी शायरियाँ भी देखने को मिलती हैं।`;
-    const sData = await Plugins.Share.share({
+    await Plugins.Share.share({
       title: "Shayari Collection 2019",
       text: text + "\n\n Download करें: " + url,
       dialogTitle: "Share video"
@@ -72,7 +72,7 @@ const About = () => {
       <Container>
       <img src={LogoImg} alt="logo" />
       <div className="content-container">
-      हेलो दोस्तों, 'Shayari Collection 2019' ❤️ एक ऐसी app है जिस पर आपको latest शायरियाँ हिंदी में
+      हेलो दोस्तों, 'Shayari Collection 2019' <span role="img" aria-label="heart"> ❤️ </span> एक ऐसी app है जिस पर आपको latest शायरियाँ हिंदी में
       उपलब्ध कराई जाती है इस पर आपको हर हफ्ते नयी नयी शायरियाँ भी देखने को मिलती हैं।
       <br />
       <br />
@@ -82,7 +82,9 @@ const About = () => {
       <br />
       <p>Disclaimer: All the content belongs to their respective owners.</p>
       <br />
-      <p>Credits: <a href="https://unsplash.com/photos/sitjgGsVIAs" target="_blank">Sidebar Image</a> Photo by Tyler Nix on Unsplash</p>
+      <p>Credits: <a href="https://unsplash.com/photos/sitjgGsVIAs" target="_blank" rel="noopener noreferrer">Sidebar Image</a> Photo by Tyler Nix on Unsplash</p>
+      <br />
+      <p>License: This app is licensed under @MIT license and the source code is open for all. <a href={repoUrl} target="_blank" rel="noopener noreferrer">Github repo</a></p>
       <br />
       <span className="button-container">
         <button onClick={e => Share()}><ShareIcon /></button>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { IonPage, IonBackButton, IonSpinner, IonIcon } from "@ionic/react";
+import { IonPage, IonBackButton, IonSpinner } from "@ionic/react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import styled from "styled-components";
 import { vidData, imgObj, imgUrl, vidName, vidLink } from "../../data/data";
@@ -123,7 +123,7 @@ export class Videos extends Component {
   };
 
   Share = async (id: string) => {
-    const sData = await Plugins.Share.share({
+    await Plugins.Share.share({
       title: "Shayari Collection 2019",
       text: vidLink + id + "\n \n From: " + url,
       dialogTitle: "Share video"
@@ -144,7 +144,7 @@ export class Videos extends Component {
           />
           <div className="original-link">
             Video Source:{" "}
-            <a href={vidLink + videoId} target="_blank">
+            <a href={vidLink + videoId} target="_blank" rel="noopener noreferrer">
               Click here
             </a>
           </div>
