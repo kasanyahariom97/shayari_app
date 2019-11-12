@@ -4,11 +4,10 @@ import {
   IonContent,
 } from "@ionic/react";
 import React from "react";
-import { Link } from "react-router-dom";
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import styled from 'styled-components'
 import { Types } from "../components/Types";
-import ShayariTypes from '../data/types';
+import { types } from '../data/data';
 import { AppContext } from '../Context'
 
 const Container = styled.div`
@@ -19,6 +18,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background: #f1f1f1;
+  overflow-y: auto;
 `
 
 const HomePage: React.FC = () => {
@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
       <IonContent>
         <Container>
         {
-          ShayariTypes.map((x, i) => (
+          types.map((x, i) => (
             <Types key={i} url={x.url} color={x.color} name={x.name} />
           ))
         }

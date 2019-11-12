@@ -5,9 +5,7 @@ import { AppPage } from "../declarations";
 import { ListItem, ListItemText, ListItemIcon } from "@material-ui/core";
 import {
   Home as HomeIcon,
-  Person as PersonIcon,
-  Public as PublicIcon,
-  Help as HelpIcon
+  Person as PersonIcon
 } from "@material-ui/icons";
 import MainImg from "../assets/main.jpg";
 import styled from "styled-components";
@@ -34,8 +32,6 @@ const Img = styled.div`
 const ItemArray: any[] = [
   <HomeIcon />,
   <PersonIcon />,
-  <PublicIcon />,
-  <HelpIcon />
 ];
 
 const Menu: React.FunctionComponent<MenuProps> = ({ appPages }) => {

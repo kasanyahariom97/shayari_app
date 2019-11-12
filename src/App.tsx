@@ -8,12 +8,11 @@ import Menu from "./components/Menu";
 import Home from "./pages/Home";
 import Provider from "./Context";
 import About from "./pages/About";
-import Help from "./pages/Help";
-import Connect from "./pages/Connect";
 
 import { Sad } from "./pages/Shayari/Sad";
 import { Trends } from "./pages/Shayari/Trends";
 import { Videos } from "./pages/Shayari/Videos";
+import { Plugins } from "@capacitor/core";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -44,42 +43,40 @@ const appPages: AppPage[] = [
     title: "About",
     url: "/about",
     icon: 1
-  },
-  {
-    title: "Connect With Us",
-    url: "/connect",
-    icon: 2
-  },
-  {
-    title: "Help",
-    url: "/help",
-    icon: 3
   }
 ];
 
-const App: React.FC = () => (
-  <IonApp>
-    <Provider>
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu appPages={appPages} />
-          <IonRouterOutlet id="main">
-            <Route path="/home" component={Home} exact={true} />
-            <Route path="/home/sad" component={Sad} exact={true} />
-            <Route path="/home/trend" component={Trends} exact={true} />
-            <Route path="/home/videos" component={Videos} exact={true} />
-            <Route path="/about" component={About} exact={true} />
-            <Route path="/connect" component={Connect} exact={true} />
-            <Route path="/help" component={Help} exact={true} />
-            <Route
-              path="/"
-              render={() => <Redirect to="/home" exact={true} />}
-            />
-          </IonRouterOutlet>
-        </IonSplitPane>
-      </IonReactRouter>
-    </Provider>
-  </IonApp>
-);
+const App: React.FC = () => {
+  React.useEffect(() => {
+    const options = {
+      color: "#35459c"
+    }
+    Plugins.StatusBar.setBackgroundColor(options);
+
+  }, []);
+
+  return (
+    <IonApp>
+      <Provider>
+        <IonReactRouter>
+          <IonSplitPane contentId="main">
+            <Menu appPages={appPages} />
+            <IonRouterOutlet id="main">
+              <Route path="/home" component={Home} exact={true} />
+              <Route path="/home/sad" component={Sad} exact={true} />
+              <Route path="/home/trend" component={Trends} exact={true} />
+              <Route path="/home/videos" component={Videos} exact={true} />
+              <Route path="/about" component={About} exact={true} />
+              <Route
+                path="/"
+                render={() => <Redirect to="/home" exact={true} />}
+              />
+            </IonRouterOutlet>
+          </IonSplitPane>
+        </IonReactRouter>
+      </Provider>
+    </IonApp>
+  );
+};
 
 export default App;

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { IonPage, IonBackButton, IonSpinner } from "@ionic/react";
+import { IonPage, IonBackButton, IonSpinner, IonIcon } from "@ionic/react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import styled from "styled-components";
-import { PlayArrow } from "@material-ui/icons";
-import { YoutubePlayerWeb } from "capacitor-youtube-player";
-import { data, obj, imgUrl } from "../../data/videos";
+import { vidData, imgObj, imgUrl, vidName, vidLink } from "../../data/data";
 import { Plugins } from "@capacitor/core";
 import Iframe from "react-iframe";
+import { url } from '../../data/config'
+import { Share as ShareIcon, ArrowBack } from '@material-ui/icons'
 
 const Container = styled.div`
   width: 100%;
@@ -30,23 +30,45 @@ const Container = styled.div`
     align-items: center;
     margin: 10px 0;
 
-
-
     #myPlayer {
       width: 90%;
       max-width: 600px;
-      height: 340px;
+      height: 280px;
     }
 
-    button {
-      width: 540px;
-      padding: 8px 0;
-      font-size: 1rem;
-      margin-top: 3rem;
+    .original-link {
+      width: 90%;
+      max-width: 600px;
+      background: white;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 3px;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
 
-      &:active,
-      &:focus {
-        outline: none;
+    .buttonContainer {
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+
+      button {
+        display: inline-block;
+        width: 100%;
+        padding: 8px 0;
+        font-size: 1rem;
+        margin: 0 5px;
+        color: black;
+        margin-top: 1rem;
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+
+        &:active,
+        &:focus {
+          outline: none;
+        }
       }
     }
   }
@@ -57,47 +79,32 @@ const ListConatiner = styled.div`
   margin: 10px 0;
 
   .list-item-class {
-    width: 80%;
+    transition: 0.2s;
+    width: 95%;
     position: relative;
     max-width: 720px;
     margin: 0 auto;
     background: white;
     border-radius: 6px;
-    color: white;
+    overflow: hidden;
+    cursor: pointer;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    color: black;
+
+    &:hover {
+      background: #f8f8f8;
+    }
 
     img {
-      height: 210px;
-      width: 100%;
+      height: auto;
+      width: 40%;
       object-fit: cover;
       object-position: center;
     }
 
-    .logo-center {
-      position: absolute;
-      opacity: 0.8;
-      background: transparent;
-      border: none;
-      color: white;
-
-      &:hover {
-        opacity: 1;
-      }
-
-      &:focus,
-      &:active {
-        outline: none;
-      }
-
-      svg {
-        height: 6rem;
-        width: 6rem;
-        filter: drop-shadow(0 8px 12px #11111155);
-      }
+    .left-container {
+      padding: 1rem;
     }
   }
 `;
@@ -115,23 +122,40 @@ export class Videos extends Component {
     await this.actions.setId(id);
   };
 
+  Share = async (id: string) => {
+    const sData = await Plugins.Share.share({
+      title: "Shayari Collection 2019",
+      text: vidLink + id + "\n \n From: " + url,
+      dialogTitle: "Share video"
+    });
+  };
+
   frameBorder: number | undefined = 0;
 
   youtubeWebPlayer = (videoId: string) => {
     return (
       <>
-      <div className="video-conatiner">
+        <div className="video-conatiner">
           <Iframe
-            url={ "https://www.youtube.com/embed/" + videoId }
+            url={"https://www.youtube.com/embed/" + videoId}
             id="myPlayer"
             height="240"
             frameBorder={this.frameBorder}
           />
-        <button onClick={e => this.actions.onClose(0)}>Close</button>
-      </div>
-    </>
-    )
-  }
+          <div className="original-link">
+            Video Source:{" "}
+            <a href={vidLink + videoId} target="_blank">
+              Click here
+            </a>
+          </div>
+          <span className="buttonContainer">
+          <button onClick={e => this.actions.onClose(0)}><ArrowBack /> Back</button>
+            <button onClick={e => this.Share(videoId)}><ShareIcon /> Share</button>
+          </span>
+        </div>
+      </>
+    );
+  };
 
   viewPage = <></>;
 
@@ -152,9 +176,10 @@ export class Videos extends Component {
       this.actions.toggleLoading();
       this.addIdandView(id)
         .then(e => {
-          this.viewPage = this.youtubeWebPlayer(this.state.videoId)
-          return e
-        }).then(e => {
+          this.viewPage = this.youtubeWebPlayer(this.state.videoId);
+          return e;
+        })
+        .then(e => {
           this.actions.setView(no);
         })
         .then(e => {
@@ -175,16 +200,20 @@ export class Videos extends Component {
 
   mainPage = (
     <>
-      {data.map((d, i) => (
+      {vidData.map((d, i) => (
         <ListConatiner key={i}>
-          <div className="list-item-class">
-            <img src={imgUrl + d + obj} alt={d} />
-            <button
-              className="logo-center"
-              onClick={e => this.actions.onView(d, 1)}
-            >
-              <PlayArrow />
-            </button>
+          <div
+            className="list-item-class"
+            onClick={e => this.actions.onView(d, 1)}
+          >
+            <img src={imgUrl + d + imgObj} alt={d} />
+            <div className="left-container">
+              <strong>
+                {vidName}&nbsp;{i}
+              </strong>
+              <p>Source: Youtube</p>
+              <p>Quality: 720p (HD)</p>
+            </div>
           </div>
         </ListConatiner>
       ))}
@@ -212,10 +241,9 @@ export class Videos extends Component {
   }
 
   render() {
-
-    if(!this.state.internetConnection) {
+    if (!this.state.internetConnection) {
       return (
-      <IonPage>
+        <IonPage>
           <AppBar position="static">
             <Toolbar>
               <IonBackButton defaultHref="/" />
@@ -228,7 +256,7 @@ export class Videos extends Component {
             </div>
           </Container>
         </IonPage>
-      )
+      );
     }
 
     if (this.state.showLoading) {

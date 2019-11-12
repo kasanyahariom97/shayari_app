@@ -4,6 +4,9 @@ import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { AppContext } from '../Context'
 import styled from 'styled-components'
 import LogoImg from '../assets/favicon.png'
+import { Share as ShareIcon, Public as PublicIcon } from '@material-ui/icons'
+import { url, version } from '../data/config'
+import { Plugins } from '@capacitor/core'
 
 const Container = styled.div`
   width: 100%;
@@ -16,6 +19,26 @@ const Container = styled.div`
   img {
     margin: 2rem 0;
   }
+
+  .content-container {
+    width: 90%;
+    max-width: 720px;
+
+    .button-container {
+      margin-top: 3px;
+      button, .btn {
+        text-decoration: none;
+        padding: 10px;
+        background: transparent;
+        font-size: 2rem;
+        color: #333333;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
 `
 
 
@@ -27,6 +50,17 @@ const About = () => {
     myContext.setCurrentPage(1);
   }, [])
 
+  const Share = async () => {
+    const text = `हेलो दोस्तों, मैंने play store पर एक नया app ढूँढा है जिसका नाम है 'Shayari Collection 2019' 
+    ❤️ यह एक ऐसी app है जिस पर आपको latest शायरियाँ हिंदी में उपलब्ध कराई जाती है 
+    इस पर आपको हर हफ्ते नयी नयी शायरियाँ भी देखने को मिलती हैं।`;
+    const sData = await Plugins.Share.share({
+      title: "Shayari Collection 2019",
+      text: text + "\n\n Download करें: " + url,
+      dialogTitle: "Share video"
+    });
+  };
+
   return (
     <IonPage>
       <AppBar position="static">
@@ -37,11 +71,23 @@ const About = () => {
       </AppBar>
       <Container>
       <img src={LogoImg} alt="logo" />
-      <p>
-        This will be filled soon
-      </p>
+      <div className="content-container">
+      हेलो दोस्तों, 'Shayari Collection 2019' ❤️ एक ऐसी app है जिस पर आपको latest शायरियाँ हिंदी में
+      उपलब्ध कराई जाती है इस पर आपको हर हफ्ते नयी नयी शायरियाँ भी देखने को मिलती हैं।
       <br />
-      <p>This build is only for special tests *prohibited for production</p>
+      <br />
+      <p>Version: {version}</p>
+      <br />
+      <p>Sources: Youtube + Various</p>
+      <br />
+      <p>Disclaimer: All the content belongs to their respective owners.</p>
+      <br />
+      <p>Credits: <a href="https://unsplash.com/photos/sitjgGsVIAs" target="_blank">Sidebar Image</a> Photo by Tyler Nix on Unsplash</p>
+      <br />
+      <span className="button-container">
+        <button onClick={e => Share()}><ShareIcon /></button>
+      </span>
+      </div>
       </Container>
     </IonPage>
   );
