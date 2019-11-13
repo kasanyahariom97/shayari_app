@@ -15,7 +15,7 @@ const Container = styled.div`
 export const Trends = () => {
 
   const [snackbarState, setSnackbar] = React.useState(false);
-
+  
   return (
     <IonPage>
       <AppBar position="static">

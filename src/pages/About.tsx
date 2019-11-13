@@ -15,6 +15,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background: #f1f1f1;
+  overflow-y: auto;
 
   img {
     margin: 2rem 0;
@@ -84,7 +85,7 @@ const About = () => {
       <br />
       <p>Credits: <a href="https://unsplash.com/photos/sitjgGsVIAs" target="_blank" rel="noopener noreferrer">Sidebar Image</a> Photo by Tyler Nix on Unsplash</p>
       <br />
-      <p>License: This app is licensed under @MIT license and the source code is open for all. <a href={repoUrl} target="_blank" rel="noopener noreferrer">Github repo</a></p>
+      <p>License: @MIT license <a href={repoUrl} target="_blank" rel="noopener noreferrer">Source Code</a></p>
       <br />
       <span className="button-container">
         <button onClick={e => Share()}><ShareIcon /></button>

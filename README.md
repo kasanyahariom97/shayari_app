@@ -2,36 +2,59 @@
 
 ( Only tested in android )
 
-## Getting Started
+To be added
 
-Dependecies
+- [ ] Firebase Support
+- [ ] Youtube API Support
+- [ ] Virtualized list support instead of DIVs
+
+## Dependecies
 
 1. NodeJS
 2. NPM
 3. Ionic CLI
 
-Clone this repository
+## Getting Started
 
-Go to the src/data directory and rename the
-data-sample to data.ts and config-sample to config.ts
+1. Clone this repository
+
+2. Rename the following files (in src/data)
+
+`config-sample` to `config.ts`
+
+and
+
+`data-sample` to `data.ts`
+
+3. Install dependencies
 
 ``` bash
 $ npm install
 $ # or
 $ yarn
-$ # for running in browser
+```
+
+4. Run
+
+Development
+
+``` bash
 $ npm start
 $ # or
 $ yarn start
-$ # for build
+```
+
+Production
+
+``` bash
 $ npm run build
 $ # or
 $ yarn build
-$ # after build make project for android
+$ # for android
 $ ionic capacitor add android
 ```
 
-Now than, open the android folder in android studio and run it on an emulator/device
+Now than, open the android folder in android studio and run it on your device/emulator
 
 This Project is licensed under the @MIT license 
-Means you can use it anywhere
+Use it anywhere you want

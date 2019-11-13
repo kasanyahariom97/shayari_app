@@ -30,3 +30,5 @@ yarn-error.log*
 App.test.tsx
 config.ts
 data.ts
+
+capacitor.config.json
